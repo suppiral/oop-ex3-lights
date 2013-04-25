@@ -1,3 +1,5 @@
+// Vertex class. container for values in Graph container.
+
 #pragma once
 
 template <class T>
