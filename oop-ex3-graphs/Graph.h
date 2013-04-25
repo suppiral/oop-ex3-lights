@@ -10,7 +10,6 @@ class Graph {
 	
 	bool empty() const { return !_vertices.size(); }
 
-
 	void push_back(T& value) 
 	{
 		Vertex<T> vertex(value);
