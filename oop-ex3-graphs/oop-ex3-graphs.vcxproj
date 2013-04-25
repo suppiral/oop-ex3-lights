@@ -76,11 +76,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\קורסים 2012\סמסטר ב\C++\ex1\final\EX1_Gil-Mizrahi_Eviatar-Levy\Shpaint\Shpaint\Utility.h" />
+    <ClInclude Include="GameNode.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="GraphIterator.h" />
+    <ClInclude Include="Macros.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\קורסים 2012\סמסטר ב\C++\ex1\final\EX1_Gil-Mizrahi_Eviatar-Levy\Shpaint\Shpaint\utility.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

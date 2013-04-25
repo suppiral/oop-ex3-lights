@@ -24,9 +24,21 @@
     <ClInclude Include="GraphIterator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GameNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Macros.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\קורסים 2012\סמסטר ב\C++\ex1\final\EX1_Gil-Mizrahi_Eviatar-Levy\Shpaint\Shpaint\Utility.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\קורסים 2012\סמסטר ב\C++\ex1\final\EX1_Gil-Mizrahi_Eviatar-Levy\Shpaint\Shpaint\utility.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
