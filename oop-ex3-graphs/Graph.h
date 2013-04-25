@@ -1,15 +1,16 @@
 #pragma once
 
+#include <vector>
 #include "Vertex.h"
 
 template <class T>
 class Graph {
-	Graph();										// default constructor
+public:
+	Graph() { }							// default constructor
 	
-	size_type size() const { return _vertices.size(); }
+	unsigned size() const { return _vertices.size(); }
 	
 	bool empty() const { return !_vertices.size(); }
-
 
 	void push_back(T& value) 
 	{
@@ -17,6 +18,6 @@ class Graph {
 		_vertices.push_back(vertex);
 	}
 	
-	private:
+private:
 	std::vector<Vertex<T>> _vertices;
 };

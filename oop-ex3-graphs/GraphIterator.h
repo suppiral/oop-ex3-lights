@@ -6,15 +6,16 @@
 
 
 template <class T>
-class GraphIterator{
+class GraphIterator {
 public:
 	GraphIterator(T& graph);
 	void next();
-	bool isEnd() const{
+	bool isEnd() const
+	{
 		return (_pointer == NULL);
 	}
 
-	T& operator [] (unsigned ix){ }
+	T& operator [] (unsigned ix) { }
 
 
 private:
