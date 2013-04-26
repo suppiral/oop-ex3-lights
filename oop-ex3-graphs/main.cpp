@@ -4,7 +4,5 @@
 
 int main()
 {
-	//std::cout << "hello world!";
-	//return EXIT_SUCCESS;
-	return 0;
+	return EXIT_SUCCESS;
 }
