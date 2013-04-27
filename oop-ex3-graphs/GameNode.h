@@ -5,14 +5,13 @@
 #include "Vertex.h"
 #include "Graph.h"
 
+template <T>
 class GameNode {
 public:
 	GameNode();
 
 private:
 	bool _edgesArray[NUM_OF_POSSIBLE_NEIGHBORS]; // this is the flag Array represents where the Node's edges.
-
-	template <T> // is this right ?
 	std::vector<Vertex<T>*> _potentialArray[NUM_OF_POSSIBLE_NEIGHBORS]; // this is the potential neighbers of the Node represented by their index on the graph. 
 };
 
