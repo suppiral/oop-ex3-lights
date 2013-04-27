@@ -21,9 +21,6 @@
     <ClInclude Include="Vertex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GraphIterator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GameNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>

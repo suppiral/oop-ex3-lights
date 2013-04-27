@@ -22,3 +22,5 @@ private:
 	Graph& _graph;
 	Vertex<T>* _pointer;
 };
+
+

@@ -79,7 +79,6 @@
     <ClInclude Include="Controller.h" />
     <ClInclude Include="GameNode.h" />
     <ClInclude Include="Graph.h" />
-    <ClInclude Include="GraphIterator.h" />
     <ClInclude Include="Macros.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>

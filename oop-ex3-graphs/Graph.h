@@ -7,7 +7,6 @@ template <class T>
 class Graph {
 public:
 	// constructors
-	Graph() { }							// default constructor
 	Graph(std::vector<Vertex<T>>& vertices) : _vertices(vertices) { }
 
 	// information
@@ -39,11 +38,59 @@ public:
 
 		return false;
 	}
+	
+	class GraphIterator;
+	//friend class GraphIterator;
 
-	//GraphIterator begin();
-	//GraphIterator end();
+	GraphIterator begin() { return GraphIterator<T>(*this, i); }
+	GraphIterator end() { return GraphIterator(*this, _vertices.size()) ; }
 
 	
 private:
 	std::vector<Vertex<T>> _vertices;
+};
+
+
+
+template <class T>
+class Graph<T>::GraphIterator {
+public:
+	GraphIterator(Graph<T>& graph, unsigned i) : _graph(graph), _index(i) { }
+//	GraphIterator(GraphIterator<T>& other); //copy c-tor
+
+	Vertex<T>& operator* () { return (_graph._vertices[index]); }
+
+	GraphIterator operator++() //postfix
+	{
+		_index++;
+		return (*this);
+	}
+
+	GraphIterator operator++(int) //prefix
+	{
+		GraphIterator copy(*this);
+		_index++;
+		return copy;
+	}
+
+	bool operator ==(GraphIterator& other)
+	{
+		if (&_graph != &other._graph)
+			return false;
+		return _index == other._index;
+	}
+
+	bool operator !=(GraphIterator& other)
+	{
+		return !(*this == other);
+	}
+
+	bool isEnd() const
+	{
+		return _index >= _graph.size();
+	}
+
+private:
+	Graph<T>& _graph;
+	unsigned int _index;
 };
