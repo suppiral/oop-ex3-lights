@@ -2,9 +2,14 @@
 
 #include <vector>
 #include "Vertex.h"
+#include "GraphIterator.h"
 
 template <class T>
 class Graph {
+
+	template <class T>
+	friend class GraphIterator;
+
 public:
 	Graph() { }							// default constructor
 	
@@ -18,6 +23,10 @@ public:
 	unsigned size() const { return _vertices.size(); }
 	
 	bool empty() const { return !_vertices.size(); }
+
+	GraphIterator<T> begin();
+
+	GraphIterator<T> end() { return GraphIterator(*this, _vertices.size() ) ; }
 
 	void push_back(const Point &location, T& value) 
 	{

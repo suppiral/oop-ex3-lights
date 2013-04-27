@@ -15,6 +15,7 @@ public:
 	void addNeighbor(Vertex<T>* vertex) 
 	{
 		_neighbors.push_back(vertex);
+		vertex->_neighbors.push_back(this);
 	}
 	void remNeighbor(Vertex<T>* vertex) 
 	{
@@ -23,10 +24,19 @@ public:
 	}
 
 	Point get_loc() const; 
+	T& get_val() { return _value; }
 
 private:
 	Point _location; // the location of the Node on the screen.
-	//GameNode _node;  // each vertex holds a Node in it. the Node has the specific information of it. 
-	T& _value;
+	T& _value; // the GameNode class will be the value that each vertex holds a Node in it. the Node has the specific information of it // GIL ?
 	std::vector<Vertex<T>*> _neighbors; // this vector holds the real Vertex neighbors.
 };
+
+
+/// C-TOS AND D-TORS ///
+
+template <class T>
+Vertex<T>::Vertex(const Point &loc, const T& value): _value(value)
+{
+	
+}
