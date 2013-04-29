@@ -77,6 +77,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="fstreams.h" />
     <ClInclude Include="GameNode.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="Macros.h" />
@@ -84,6 +85,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="fstreams.cpp" />
+    <ClCompile Include="gamenode.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

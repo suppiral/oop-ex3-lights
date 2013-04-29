@@ -5,24 +5,25 @@
 #include <vector>
 #include "Macros.h"
 
+
 template <class T>
 class Vertex {
 public:
-	Vertex(const T& value);							// c-tor 
-	Vertex(const Vertex& other);					// copy constructor
-	Vertex& operator=(const Vertex& other);			// assignment operator
+	Vertex(const T& node) : _node(node) { }			// c-tor 
 	
-	void addNeighbor(Vertex<T>* vertex) 
+	void addNeighbor(unsigned vertex) 
 	{
 		_neighbors.push_back(vertex);
 	}
-	void remNeighbor(Vertex<T>* vertex) 
+	void remNeighbor(unsigned vertex) 
 	{
 	//	for (unsigned i = 0; i < _neighbors.size(); i++)
 			// ........................
 	}
 
+	T& getNode() { return _node; }
+
 private:
-	T& _value;
-	std::vector<Vertex<T>*> _neighbors; // neighbors list.
+	T _node;
+	std::vector<unsigned> _neighbors; // neighbors list.
 };

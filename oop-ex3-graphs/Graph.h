@@ -1,3 +1,7 @@
+/* 
+* Graph container class.
+*/
+
 #pragma once
 
 #include <vector>
@@ -7,43 +11,51 @@ template <class T>
 class Graph {
 public:
 	// constructors
-	Graph(std::vector<Vertex<T>>& vertices) : _vertices(vertices) { }
+	Graph(std::vector<T>& nodes)
+	{
+		for (unsigned i = 0; i < nodes.size(); i++)
+		{
+			Vertex<T> vertex(nodes[i]);
+			_vertices.push_back(vertex);
+		}
+	}
 
 	// information
 	unsigned size() const { return _vertices.size(); }
 	bool empty() const { return !_vertices.size(); }
 
 	// operations
-	void push_back(T& value) 
+	bool addEdge(unsigned i, unsigned j) 
 	{
-		Vertex<T> vertex(value);
-		_vertices.push_back(vertex);
-	}
-
-	bool addEdge(unsigned i, unsigned j) {
+		// check validity of parameters
 		if (!(i < size() && j < size()))
 			return false;
 
+		// add edges
 		if (_vertices[i].addEdge(j))
 			return _vertices[j].addEdge(i);
 
 		return false;
 	}
-	bool remEdge(unsigned i, unsigned j) {
+
+	bool remEdge(unsigned i, unsigned j) 
+	{
+		// check validity of parameters
 		if (!(i < size() && j < size()))
 			return false;
 
+		// remove edges
 		if (_vertices[i].remEdge(j))
 			return _vertices[j].remEdge(i);
 
 		return false;
 	}
 	
-	class GraphIterator;
-	//friend class GraphIterator;
+	class Iterator;
+	friend class Iterator;
 
-	GraphIterator begin() { return GraphIterator<T>(*this, i); }
-	GraphIterator end() { return GraphIterator(*this, _vertices.size()) ; }
+	Iterator begin() { return Iterator<T>(*this, i); }
+	Iterator end() { return Iterator(*this, _vertices.size()) ; }
 
 	
 private:
@@ -53,34 +65,34 @@ private:
 
 
 template <class T>
-class Graph<T>::GraphIterator {
+class Graph<T>::Iterator {
 public:
-	GraphIterator(Graph<T>& graph, unsigned i) : _graph(graph), _index(i) { }
-//	GraphIterator(GraphIterator<T>& other); //copy c-tor
+	Iterator(Graph<T>& graph, unsigned i) : _graph(graph), _index(i) { }
+	Iterator(Iterator& other); //copy c-tor  >> not implemented <<
 
-	Vertex<T>& operator* () { return (_graph._vertices[index]); }
+	T& operator* () { return _graph._vertices[index].getNode(); }
 
-	GraphIterator operator++() //postfix
+	Iterator operator++() //prefix
 	{
-		_index++;
+		++_index;
 		return (*this);
 	}
 
-	GraphIterator operator++(int) //prefix
+	Iterator operator++(int) //postfix
 	{
-		GraphIterator copy(*this);
-		_index++;
+		Iterator copy(*this);
+		++_index;
 		return copy;
 	}
 
-	bool operator ==(GraphIterator& other)
+	bool operator ==(Iterator& other)
 	{
-		if (&_graph != &other._graph)
+		if (&_graph != &(other._graph))
 			return false;
 		return _index == other._index;
 	}
 
-	bool operator !=(GraphIterator& other)
+	bool operator !=(Iterator& other)
 	{
 		return !(*this == other);
 	}

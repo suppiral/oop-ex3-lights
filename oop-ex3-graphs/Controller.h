@@ -3,11 +3,12 @@
 #include <SFML/Graphics.hpp>
 #include "Graph.h"
 #include "GameNode.h"
+#include "fstreams.h"
 
 class Controller
 {
 public:
-	Controller();
+	Controller(ifstream &infd);
 	~Controller();
 	bool runLevel();
 
@@ -15,8 +16,8 @@ private:
 	Graph<GameNode>* _board;
 	sf::RenderWindow _window;
 
-	void init();
-	void readLevel();
+	void init(ifstream &infd);
+	void readLevel(ifstream &infd);
 	void createWindow();
 	bool handleEvents(const sf::Event& event);
 
