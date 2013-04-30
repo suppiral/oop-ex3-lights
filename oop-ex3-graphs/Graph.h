@@ -57,7 +57,12 @@ public:
 	Iterator begin() { return Iterator<T>(*this, i); }
 	Iterator end() { return Iterator(*this, _vertices.size()) ; }
 
-	
+	T& operator[](int i)
+	{
+		return _vertices[i].getNode();
+	}
+
+
 private:
 	std::vector<Vertex<T>> _vertices;
 };
