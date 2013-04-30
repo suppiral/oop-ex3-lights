@@ -11,14 +11,32 @@ class Vertex {
 public:
 	Vertex(const T& node) : _node(node) { }			// c-tor 
 	
-	void addNeighbor(unsigned vertex) 
+	bool addNeighbor(unsigned vertex) 
 	{
+		// check for duplicates
+		for (unsigned i = 0; i < _neighbors.size(); i++)
+			if (_neighbors[i] == vertex)
+				return false;
+
+		// if no duplicates: add
 		_neighbors.push_back(vertex);
+		return true;
 	}
-	void remNeighbor(unsigned vertex) 
+
+	bool remNeighbor(unsigned vertex) 
 	{
-	//	for (unsigned i = 0; i < _neighbors.size(); i++)
-			// ........................
+		// search for neighbor
+		for (unsigned i = 0; i < _neighbors.size(); i++)
+		{
+			// if found: erase
+			if (_neighbors[i] == vertex)
+			{
+				_neighbors.erase(_neighbors.begin()+i);
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	T& getNode() { return _node; }

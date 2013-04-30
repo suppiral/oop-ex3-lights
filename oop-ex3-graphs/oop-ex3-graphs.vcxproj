@@ -79,6 +79,7 @@
     <ClInclude Include="Controller.h" />
     <ClInclude Include="fstreams.h" />
     <ClInclude Include="GameNode.h" />
+    <ClInclude Include="GameNodeGraphics.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="Macros.h" />
     <ClInclude Include="Vertex.h" />
@@ -87,6 +88,7 @@
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="fstreams.cpp" />
     <ClCompile Include="gamenode.cpp" />
+    <ClCompile Include="GameNodeGraphics.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

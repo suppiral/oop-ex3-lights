@@ -15,7 +15,7 @@ Controller::~Controller()
 void Controller::init(std::ifstream &infd) 
 {
 	createWindow();
-	readLevel(infd);	
+	//readLevel(infd);	
 }
 
 // creates the window

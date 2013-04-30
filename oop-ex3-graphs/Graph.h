@@ -32,8 +32,8 @@ public:
 			return false;
 
 		// add edges
-		if (_vertices[i].addEdge(j))
-			return _vertices[j].addEdge(i);
+		if (_vertices[i].addNeighbor(j))
+			return _vertices[j].addNeighbor(i);
 
 		return false;
 	}
@@ -45,8 +45,8 @@ public:
 			return false;
 
 		// remove edges
-		if (_vertices[i].remEdge(j))
-			return _vertices[j].remEdge(i);
+		if (_vertices[i].remNeighbor(j))
+			return _vertices[j].remNeighbor(i);
 
 		return false;
 	}
