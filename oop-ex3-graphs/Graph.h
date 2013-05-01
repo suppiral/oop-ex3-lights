@@ -55,8 +55,13 @@ public:
 		return false;
 	}
 	
+	T& operator[](int i)
+	{
+		return _vertices[i].getNode();
+	}
+
+
 	class Iterator;
-	friend class Iterator;
 
 	Iterator begin() { return Iterator(*this, 0); }
 	Iterator end() { return Iterator(*this, _vertices.size()); }
@@ -73,7 +78,7 @@ class Graph<T>::Iterator {
 public:
 	Iterator(Graph<T>& graph, unsigned i) : _graph(graph), _index(i) { }
 
-	T& operator* () { return _graph._vertices[_index].getData(); }
+	T& operator* () { return _graph[_index]; }
 
 	Iterator operator++() //prefix
 	{
