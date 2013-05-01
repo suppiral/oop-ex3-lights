@@ -3,13 +3,11 @@
 #pragma once
 
 #include <vector>
-#include "Macros.h"
-
 
 template <class T>
 class Vertex {
 public:
-	Vertex(const T& node) : _node(node) { }			// c-tor 
+	Vertex(const T& node) : _node(node) { }	    // c-tor 
 	
 	bool addNeighbor(unsigned vertex) 
 	{
@@ -39,7 +37,7 @@ public:
 		return false;
 	}
 
-	T& getNode() { return _node; }
+	T& getData() { return _node; }
 
 private:
 	T _node;

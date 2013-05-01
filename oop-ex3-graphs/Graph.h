@@ -18,6 +18,10 @@ public:
 			Vertex<T> vertex(nodes[i]);
 			_vertices.push_back(vertex);
 		}
+
+		
+
+		//creatNeighborsLists();
 	}
 
 	// information
@@ -54,15 +58,10 @@ public:
 	class Iterator;
 	friend class Iterator;
 
-	Iterator begin() { return Iterator<T>(*this, i); }
-	Iterator end() { return Iterator(*this, _vertices.size()) ; }
+	Iterator begin() { return Iterator(*this, 0); }
+	Iterator end() { return Iterator(*this, _vertices.size()); }
 
-	T& operator[](int i)
-	{
-		return _vertices[i].getNode();
-	}
-
-
+	
 private:
 	std::vector<Vertex<T>> _vertices;
 };
@@ -73,9 +72,8 @@ template <class T>
 class Graph<T>::Iterator {
 public:
 	Iterator(Graph<T>& graph, unsigned i) : _graph(graph), _index(i) { }
-	Iterator(Iterator& other); //copy c-tor  >> not implemented <<
 
-	T& operator* () { return _graph._vertices[index].getNode(); }
+	T& operator* () { return _graph._vertices[_index].getData(); }
 
 	Iterator operator++() //prefix
 	{
