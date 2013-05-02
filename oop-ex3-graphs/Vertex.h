@@ -37,9 +37,58 @@ public:
 		return false;
 	}
 
-	T& getData() { return _node; }
+	T& getNode() { return _node; }
+
+	class neighborsIterator;
+	friend class neighborsIterator;
+
+	neighborsIterator begin() { return neighborsIterator(*this, 0); }
+	neighborsIterator end()   { return neighborsIterator(*this, _neighbors.size()); }
+
+	bool visited;				  // useful for different algorithms
 
 private:
 	T _node;
 	std::vector<unsigned> _neighbors; // neighbors list.
+};
+
+
+                                                                     
+                                                                     
+                                                                     
+                                             
+
+template<class T>
+class Vertex<T> ::neighborsIterator {
+
+public:	
+	neighborsIterator(Vertex<T> &vtx, unsigned i): _vtx(vtx), _index(i) { }
+
+	unsigned operator*() { return _vtx._neighbors[_index]; }
+	
+	neighborsIterator operator ++() { 
+		++_index; 
+		return *this;
+	}
+
+	neighborsIterator operator ++(int) {
+		neighborsIterator copy(*this);
+		++_index;
+		return copy;
+	}
+
+	bool operator == ( neighborsIterator& other )
+	{
+		if ( &_vtx == & (other._vtx) )
+			return false;
+		return _index == other._vtx;
+	}
+
+	bool isEnd() { return _index >= _vtx._neighbors.size(); }
+
+
+private:
+	Vertex<T>& _vtx;
+	unsigned _index;
+
 };

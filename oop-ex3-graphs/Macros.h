@@ -3,8 +3,8 @@
 // a point on the screen
 struct Point {
 	Point() { }
-	Point(double x1, double y1) { x = x1; y = y1; }
-	double x, y;
+	Point(float x1, float y1) { x = x1; y = y1; }
+	float x, y;
 };
 
 enum MOUSE_CLICK_TYPE {
@@ -18,7 +18,8 @@ const unsigned WINDOW_H = 600;
 
 
 const unsigned NUM_OF_POSSIBLE_NEIGHBORS = 6;
-const unsigned NODE_RADIUS = 20;
+const unsigned NODE_RADIUS = 10;
+const unsigned ANTENNA_WIDTH = 3;
 const unsigned EDGE_LENGTH = 20; // the length of an edge.
 const unsigned VERTEX_DISTANCE = 40; // this is the space between two vertexes.
 const double HEIGHT_DIFFRENCE = (sqrt(3.0)/2)*EDGE_LENGTH; // the height diffrence between two rows is e.q triangle height.

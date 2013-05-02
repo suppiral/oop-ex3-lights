@@ -14,8 +14,10 @@ GameNodeGraphics::GameNodeGraphics(const Point& loc) : _lightbulb(float(NODE_RAD
 	// setup antennot
 	for (unsigned i = 0; i < NUM_OF_POSSIBLE_NEIGHBORS; i++)
 	{
-		sf::RectangleShape line(sf::Vector2f(float(EDGE_LENGTH), float(3)));
+		sf::RectangleShape line(sf::Vector2f(float(EDGE_LENGTH+20), float(ANTENNA_WIDTH)));
 		line.setPosition(float(loc.x), float(loc.y));
+		line.setOrigin(0.f, float(ANTENNA_WIDTH)/2);
+
 		line.rotate(float(360/NUM_OF_POSSIBLE_NEIGHBORS)*i);
 		_antennot.push_back(line);
 	}
@@ -34,11 +36,6 @@ bool GameNodeGraphics::isPosIn(const Point& pos) const
 	// return if contains pos
 	return bounds.contains(float(pos.x), float(pos.y));
 }
-
-
-
-
-
 
 
 // Drawing

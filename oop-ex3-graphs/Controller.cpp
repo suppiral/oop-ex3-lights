@@ -15,14 +15,26 @@ Controller::~Controller()
 void Controller::init(std::ifstream &infd) 
 {
 	createWindow();
-	//readLevel(infd);	
+	//readLevel(infd);
+
+	std::vector<GameNode> nodes;
+	for (unsigned i = 0; i < 10; i++)
+	{
+		bool ant[6] = { true, true, false, true, true, true };
+		GameNode node(i, Point(float(40+80*i), float(80)), ant);
+		nodes.push_back(node);
+	}
+	_board = new Graph<GameNode>(nodes);
 }
 
 // creates the window
 void Controller::createWindow()
 {
 	// create window
-	_window.create(sf::VideoMode(WINDOW_W, WINDOW_H), "Aziz! Lights!");
+	sf::ContextSettings settings;
+	settings.antialiasingLevel = 8;
+
+	_window.create(sf::VideoMode(WINDOW_W, WINDOW_H), "Aziz! Lights!", sf::Style::Default, settings);
 	
 	_window.setVerticalSyncEnabled(true); // set refresh rate as screen's refresh rate
 	_window.setJoystickThreshold(10000); // joystick threshold
@@ -93,7 +105,7 @@ bool Controller::runLevel()
 	bool isCompleted = false;
 	while (!isCompleted) 
 	{
-		_window.display();
+		draw();
 
 		sf::Event event;
 		_window.waitEvent(event);
@@ -110,7 +122,10 @@ bool Controller::runLevel()
 void Controller::draw()
 {
 	_window.clear();
-	// <-- graph draw -->
+	
+	for (Graph<GameNode>::Iterator it = _board->begin(); !it.isEnd(); ++it)
+		(*it).draw(_window);
+
 	_window.display();
 }
 
@@ -124,7 +139,12 @@ bool Controller::handleEvents(const sf::Event& event)
 		break;
 
 	case sf::Event::MouseButtonPressed: // Mouse Button pressed:
-		// <-- graph check each node -->
+	{
+
+		for (Graph<GameNode>::Iterator it = _board->begin(); !it.isEnd(); ++it)
+			if ((*it).click(*_board, Point(float(event.mouseButton.x), float(event.mouseButton.y)), RIGHT))
+				break;
+	}
 		break;
 	}
 	return true;
