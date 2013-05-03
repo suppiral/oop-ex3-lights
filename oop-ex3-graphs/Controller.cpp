@@ -14,9 +14,27 @@ Controller::~Controller()
 // controller initialization
 void Controller::init(std::ifstream &infd) 
 {
-	createWindow();
-	readLevel(infd);
 
+	// --------------------- Create Splash ------------------------
+	sf::RenderWindow splash;
+	splash.create(sf::VideoMode(576, 730), "Aziz! Lights!", sf::Style::None);
+	sf::Sprite BG;
+	sf::Texture texture;
+	if (!texture.loadFromFile("Aziz.png"))
+	    exit(1);
+	texture.setSmooth(true);
+	BG.setPosition(0,0);
+	BG.setTexture(texture);
+	splash.draw(BG);
+	splash.display();
+	// -----------------------------------------------------------
+	// Read Level
+	readLevel(infd);
+	sf::sleep(sf::seconds(3.f));
+	// ------------------ Close Splash --------------------------
+	splash.close();
+	// ------------------ Create Window --------------------------
+	createWindow();
 
 }
 
@@ -27,7 +45,8 @@ void Controller::createWindow()
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 8;
 
-	_window.create(sf::VideoMode(WINDOW_W, WINDOW_H), "Aziz! Lights!", sf::Style::Default, settings);
+	_window.create(sf::VideoMode(2*MARGIN + (((num_of_rows-1)/2 + 3)*unsigned(VERTEX_DISTANCE)),  2*MARGIN + unsigned(VTX_HEIGHT_DIFFRENCE)*num_of_rows), 
+					"Aziz! Lights!", sf::Style::Default, settings);
 	
 	_window.setVerticalSyncEnabled(true); // set refresh rate as screen's refresh rate
 	_window.setJoystickThreshold(10000); // joystick threshold
@@ -39,13 +58,15 @@ void Controller::readLevel(std::ifstream &infd)
 	std::vector <GameNode> nodes;
 	bool antennot[NUM_OF_POSSIBLE_NEIGHBORS];
 	Point point = INIT_POINT;
-	float last_row_init_x_point = INIT_POINT.x; // the X value of the first vertex in the last row.
+	float last_row_init_x_point = point.x; // the X value of the first vertex in the last row.
 	char c;
 	unsigned graph_index = 0;
-	unsigned num_of_rows;
 	unsigned num_of_vtx;
 
 	infd >> num_of_rows; // get the rows number
+
+	point.x = float(MARGIN + (((num_of_rows-1)/2 + 3)*VERTEX_DISTANCE/2)-VERTEX_DISTANCE);
+	point.y = float(MARGIN);
 
 	// run on rows
 	for( unsigned row = 0; row < num_of_rows; row++)
@@ -56,9 +77,9 @@ void Controller::readLevel(std::ifstream &infd)
 			point.y += VTX_HEIGHT_DIFFRENCE;
 
 			if ( row <= num_of_rows/2 )  // befor/ after the middle - the x location changes.
-				point.x = last_row_init_x_point - VERTEX_DISTANCE;
+				point.x = last_row_init_x_point - VERTEX_DISTANCE/2;
 			else
-				point.x = last_row_init_x_point +  VERTEX_DISTANCE;
+				point.x = last_row_init_x_point +  VERTEX_DISTANCE/2;
 		}
 
 		last_row_init_x_point = point.x;  /// update the first vertex x value for next iteration

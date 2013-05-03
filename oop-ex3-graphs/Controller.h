@@ -16,7 +16,7 @@ private:
 	Graph<GameNode>* _board;
 	sf::RenderWindow _window;
 	unsigned _light_source;
-
+	unsigned num_of_rows;
 
 	void createWindow();
 	void init(ifstream &infd);

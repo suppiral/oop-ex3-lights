@@ -25,6 +25,7 @@ const unsigned VERTEX_DISTANCE = EDGE_LENGTH*2; // this is the space between two
 const float HEIGHT_DIFFRENCE = float((sqrt(3.0)/2))*EDGE_LENGTH; // the height diffrence between two rows is e.q triangle height.
 const float VTX_HEIGHT_DIFFRENCE = float((sqrt(3.0)/2)*VERTEX_DISTANCE);
 const unsigned FIRST_ROW_VTX_NUM = 3;
+const unsigned MARGIN = 100;
 
 const char Edge = '1' ;
 const char NoEdge = '0' ;
@@ -34,7 +35,7 @@ const char Newline_c = '\n';
 const unsigned EDGE_VAL = 1;
 const unsigned NO_EDGE_VAL = 0;
 
-const Point INIT_POINT(50,50);  // the first on the screen
+const Point INIT_POINT(250,50);  // the first on the screen
 
 const int NO_NEIGHBOR = -1;
 
