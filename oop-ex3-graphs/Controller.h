@@ -28,5 +28,5 @@ private:
 	bool handleEvents(const sf::Event& event);
 	
 
-	void draw();
+	void draw(Graph<GameNode>::BFS_Iterator& bfs_it);
 };

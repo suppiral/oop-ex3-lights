@@ -47,7 +47,9 @@ void Controller::readLevel(std::ifstream &infd)
 	std::vector <GameNode> nodes;
 	bool antennot[NUM_OF_POSSIBLE_NEIGHBORS];
 	Point point = INIT_POINT;;
+	float last_row_init_x_point = INIT_POINT.x; // the X value of the first vertex in the last row.
 	char c;
+	unsigned graph_index = 0;
 	unsigned num_of_rows;
 	unsigned num_of_vtx;
 
@@ -57,16 +59,20 @@ void Controller::readLevel(std::ifstream &infd)
 	for( unsigned row = 0; row < num_of_rows; row++)
 	{
 		// if it is not the first vtx
-		if( row > 0) {
-			point.y += HEIGHT_DIFFRENCE;
+		if( row > 0)
+		{
+			point.y += VTX_HEIGHT_DIFFRENCE;
 
 			if ( row <= num_of_rows/2 )  // befor/ after the middle - the x location changes.
-				point.x -= VERTEX_DISTANCE/2;
+				point.x = last_row_init_x_point - VERTEX_DISTANCE/2;
 			else
-				point.x += VERTEX_DISTANCE/2;
+				point.x = last_row_init_x_point +  VERTEX_DISTANCE/2;
 		}
 
+		last_row_init_x_point = point.x;  /// update the first vertex x value for next iteration
+
 		infd >> num_of_vtx; // get the number of vertices for this row.
+
 		for ( unsigned i = 0; i < num_of_vtx; i++ )
 		{
 			if ( i > 0 ) // if it is not the first vertex in the row
@@ -93,47 +99,50 @@ void Controller::readLevel(std::ifstream &infd)
 				}
 			}
 
-			GameNode node(row*i, point, antennot);  // create a new Node
+			GameNode node(graph_index, point, antennot);  // create a new Node
 			nodes.push_back(node);
+			graph_index++; // new next node - new index 
 		}
 	}
 	_board = new Graph<GameNode>(nodes);
+	createNeighborsLists();
 }
 
 // run level game loop
 bool Controller::runLevel()
 {
 	// =====================================================
-	_light_source = 4;
+	_light_source = _board->size() / 2 + 1;
 	// =====================================================
 
 
-	bool isCompleted = false;
-	while (!isCompleted) 
+	bool completed = false;
+	while (!completed) 
 	{
-		draw();
+		Graph<GameNode>::BFS_Iterator bfs_it(*_board, _light_source);
+		if (bfs_it.length() == _board->size())
+			completed = true;
+		draw(bfs_it);
 
+		
 		sf::Event event;
 		_window.waitEvent(event);
 		if (!handleEvents(event)) // check if X button pressed
 			return false;
-
-		// check condition for completation
-		// isCompleted = ?
 	}
 	return true;
 }
 
 // draw game on screen
-void Controller::draw()
+void Controller::draw(Graph<GameNode>::BFS_Iterator& bfs_it)
 {
 	_window.clear();
 	
 	for (Graph<GameNode>::Iterator it = _board->begin(); !it.isEnd(); ++it)
 		(*it).draw(_window);
 
-	for (Graph<GameNode>::BFS_Iterator it(*_board, _light_source); !it.isEnd(); ++it)
-		(*it).light(_window);
+	for (; !bfs_it.isEnd(); ++bfs_it)
+		(*bfs_it).light(_window);
 
 	_window.display();
 }
@@ -176,9 +185,12 @@ void Controller::createNeighborsLists()
 {
 	for ( Graph<GameNode>::Iterator it = _board->begin(); !it.isEnd(); ++it) 
 	{
-		Point point = (*it).getPos();
 		for( int i = 0; i < NUM_OF_POSSIBLE_NEIGHBORS; i++ )
 		{
+			// get the position of the current vertex to compare with each possible neighbor :
+			Point point = (*it).getPos();
+
+			//  search for the neighbors around :
 			switch (i) {
 			case FIRST_N:
 				point.x -= VERTEX_DISTANCE;
@@ -186,12 +198,12 @@ void Controller::createNeighborsLists()
 
 			case SECOND_N:
 				point.x -= EDGE_LENGTH;
-				point.y -= VTX_HEIGHT_HEIGHT_DIFFRENCE;
+				point.y -= VTX_HEIGHT_DIFFRENCE;
 				break;
 
 			case THIRD_N:
 				point.x += EDGE_LENGTH;
-				point.y -= VTX_HEIGHT_HEIGHT_DIFFRENCE;
+				point.y -= VTX_HEIGHT_DIFFRENCE;
 				break;
 
 			case FOURTH_N:
@@ -200,21 +212,23 @@ void Controller::createNeighborsLists()
 
 			case FIFTH_N:
 				point.x += EDGE_LENGTH;
-				point.y += VTX_HEIGHT_HEIGHT_DIFFRENCE;
+				point.y += VTX_HEIGHT_DIFFRENCE;
 				break;
 
 			case SIXTH_N:
 				point.x -=EDGE_LENGTH;
-				point.y += VTX_HEIGHT_HEIGHT_DIFFRENCE;
+				point.y += VTX_HEIGHT_DIFFRENCE;
 				break;
 			}
 
 			// search the neighbor int the graph (if exists)
-			(*it).setPotentialNeighbors ( i, search_neighbor(point) ) ; 
+			(*it).setPotentialNeighbors ( it.get_index() , search_neighbor(point) ) ; 
 		}
 	}
 
 }
+
+
 
 
 //this function gets a point of a potential neighbor of a node and look up for it in the graph
@@ -223,7 +237,6 @@ int Controller::search_neighbor(Point potential_neighbor)
 {
 	for ( Graph<GameNode>::Iterator it = _board->begin(); !it.isEnd(); ++it ) 
 	{
-		if ( (*it).getPos().x == potential_neighbor.x && (*it).getPos().y == potential_neighbor.y )
 		if ( (*it).isPosIn(potential_neighbor))
 			return it.get_index(); /// return the index  of the neighbor found on the graph
 	}

@@ -166,6 +166,7 @@ public:
 	{
 		return _order.empty();
 	}
+	unsigned int length() const { return _order.size(); }
 
 private:
 	Graph<T>& _graph;

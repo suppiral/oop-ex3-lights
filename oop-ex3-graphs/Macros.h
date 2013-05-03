@@ -23,11 +23,11 @@ const unsigned ANTENNA_WIDTH = 3;
 const unsigned EDGE_LENGTH = 20; // the length of an edge.
 const unsigned VERTEX_DISTANCE = 40; // this is the space between two vertexes.
 const float HEIGHT_DIFFRENCE = float((sqrt(3.0)/2))*EDGE_LENGTH; // the height diffrence between two rows is e.q triangle height.
-const float VTX_HEIGHT_HEIGHT_DIFFRENCE = float((sqrt(3.0)/2)*VERTEX_DISTANCE);
+const float VTX_HEIGHT_DIFFRENCE = float((sqrt(3.0)/2)*VERTEX_DISTANCE);
 const unsigned FIRST_ROW_VTX_NUM = 3;
 
-const char Edge = '0' ;
-const char NoEdge = '1' ;
+const char Edge = '1' ;
+const char NoEdge = '0' ;
 const char space_c = ' ';
 const char Newline_c = '\n';
 
