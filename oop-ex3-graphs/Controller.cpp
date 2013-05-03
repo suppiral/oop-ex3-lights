@@ -181,11 +181,11 @@ bool Controller::handleEvents(const sf::Event& event)
 		switch (event.mouseButton.button)
 		{
 		case (sf::Mouse::Right):
-			click_type = RIGHT;
+			click_type = LEFT; // I DIDN'T MAKE THE RULES!
 			break;
 		case (sf::Mouse::Left):
 		default:
-			click_type = LEFT;
+			click_type = RIGHT;
 			break;
 		}
 
@@ -216,12 +216,12 @@ void Controller::createNeighborsLists()
 
 			case SECOND_N:
 				point.x += EDGE_LENGTH;
-				point.y += VTX_HEIGHT_DIFFRENCE;
+				point.y -= VTX_HEIGHT_DIFFRENCE;
 				break;
 
 			case THIRD_N:
 				point.x -= EDGE_LENGTH;
-				point.y += VTX_HEIGHT_DIFFRENCE;
+				point.y -= VTX_HEIGHT_DIFFRENCE;
 				break;
 
 			case FOURTH_N:
@@ -230,12 +230,12 @@ void Controller::createNeighborsLists()
 
 			case FIFTH_N:
 				point.x -= EDGE_LENGTH;
-				point.y -= VTX_HEIGHT_DIFFRENCE;
+				point.y += VTX_HEIGHT_DIFFRENCE;
 				break;
 
 			case SIXTH_N:
 				point.x += EDGE_LENGTH;
-				point.y -= VTX_HEIGHT_DIFFRENCE;
+				point.y += VTX_HEIGHT_DIFFRENCE;
 				break;
 			}
 
