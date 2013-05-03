@@ -18,10 +18,15 @@ private:
 	unsigned _light_source;
 
 
-	void init(ifstream &infd);
-	void readLevel(ifstream &infd);
 	void createWindow();
+	void init(ifstream &infd);
+	// --------------------------
+	void createNeighborsLists();
+	void readLevel(ifstream &infd);
+	int search_neighbor(Point point);
+	// --------------------------
 	bool handleEvents(const sf::Event& event);
+	
 
 	void draw();
 };

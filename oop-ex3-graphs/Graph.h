@@ -113,10 +113,14 @@ public:
 		return _index >= _graph.size();
 	}
 
+	unsigned get_index() const { return _index; }
+
 private:
 	Graph<T>& _graph;
 	unsigned int _index;
 };
+
+// ########################################################################################
 
 
 // this iterator gets a source index and makes it able to iterate on the bfs order from the source

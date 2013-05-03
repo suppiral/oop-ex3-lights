@@ -36,13 +36,13 @@ bool GameNode::click(Graph<GameNode>& graph, Point& loc, MOUSE_CLICK_TYPE click)
 
 	for (unsigned i = 0; i < NUM_OF_POSSIBLE_NEIGHBORS; i++)
 	{
-/*		if (_potentialNeighbors[i] != NO_NEIGHBOR && last_antennot[i] == true && _antennot[i] == false &&
+		if (_potentialNeighbors[i] != NO_NEIGHBOR && last_antennot[i] == true && _antennot[i] == false &&
 						graph[_potentialNeighbors[i]].checkAntenna(i))
 			graph.remEdge(_my_index, _potentialNeighbors[i]);
 
 		else if (_potentialNeighbors[i] != NO_NEIGHBOR && last_antennot[i] == false && _antennot[i] == true &&
 						graph[_potentialNeighbors[i]].checkAntenna(i))
-			graph.addEdge(_my_index, _potentialNeighbors[i]); */
+			graph.addEdge(_my_index, _potentialNeighbors[i]); 
 	}
 	return true;
 }
@@ -72,4 +72,10 @@ void GameNode::draw(sf::RenderWindow& window)
 void GameNode::light(sf::RenderWindow& window)
 {
 	_graphics.light(window);
+}
+
+
+void GameNode::setPotentialNeighbors(int index, int neighbor)
+{
+	_potentialNeighbors[index] = neighbor;
 }

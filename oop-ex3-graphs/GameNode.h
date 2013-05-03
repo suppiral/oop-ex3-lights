@@ -16,6 +16,9 @@ public:
 
 	void draw(sf::RenderWindow& window);
 	void light(sf::RenderWindow& window);
+	Point getPos() const { return _graphics.getPos(); }
+	bool isPosIn(const Point& pos) const { return _graphics.isPosIn(pos); }
+	void setPotentialNeighbors(int index, int neighbor);
 
 private:
 	unsigned _my_index;

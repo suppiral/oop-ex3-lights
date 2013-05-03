@@ -30,8 +30,8 @@ bool GameNodeGraphics::isPosIn(const Point& pos) const
 	// don't forget the edges
 	bounds.left -= EDGE_LENGTH;
 	bounds.top -= EDGE_LENGTH;
-	bounds.width += EDGE_LENGTH;
-	bounds.height += EDGE_LENGTH;
+	bounds.width += EDGE_LENGTH*2;
+	bounds.height += EDGE_LENGTH*2;
 
 	// return if contains pos
 	return bounds.contains(float(pos.x), float(pos.y));
@@ -57,3 +57,7 @@ void GameNodeGraphics::light(sf::RenderWindow& window)
 	window.draw(_lightbulb);
 }
 
+Point GameNodeGraphics::getPos() const
+{
+	return Point(float(_lightbulb.getPosition().x), float(_lightbulb.getPosition().y));
+}
