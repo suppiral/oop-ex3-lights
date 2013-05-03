@@ -17,15 +17,7 @@ void Controller::init(std::ifstream &infd)
 	createWindow();
 	readLevel(infd);
 
-/*	srand(12346);
-	std::vector<GameNode> nodes;
-	for (unsigned i = 0; i < 10; i++)
-	{
-		bool ant[6] = { bool(rand() % 2), bool(rand() % 2), bool(rand() % 2), bool(rand() % 2), bool(rand() % 2), bool(rand() % 2) };
-		GameNode node(i, Point(float(40+80*i), float(80)), ant);
-		nodes.push_back(node);
-	}
-	_board = new Graph<GameNode>(nodes);*/
+
 }
 
 // creates the window
@@ -46,7 +38,7 @@ void Controller::readLevel(std::ifstream &infd)
 {
 	std::vector <GameNode> nodes;
 	bool antennot[NUM_OF_POSSIBLE_NEIGHBORS];
-	Point point = INIT_POINT;;
+	Point point = INIT_POINT;
 	float last_row_init_x_point = INIT_POINT.x; // the X value of the first vertex in the last row.
 	char c;
 	unsigned graph_index = 0;
@@ -64,9 +56,9 @@ void Controller::readLevel(std::ifstream &infd)
 			point.y += VTX_HEIGHT_DIFFRENCE;
 
 			if ( row <= num_of_rows/2 )  // befor/ after the middle - the x location changes.
-				point.x = last_row_init_x_point - VERTEX_DISTANCE/2;
+				point.x = last_row_init_x_point - VERTEX_DISTANCE;
 			else
-				point.x = last_row_init_x_point +  VERTEX_DISTANCE/2;
+				point.x = last_row_init_x_point +  VERTEX_DISTANCE;
 		}
 
 		last_row_init_x_point = point.x;  /// update the first vertex x value for next iteration
@@ -112,7 +104,7 @@ void Controller::readLevel(std::ifstream &infd)
 bool Controller::runLevel()
 {
 	// =====================================================
-	_light_source = _board->size() / 2 + 1;
+	_light_source = _board->size() / 2;
 	// =====================================================
 
 
@@ -193,36 +185,36 @@ void Controller::createNeighborsLists()
 			//  search for the neighbors around :
 			switch (i) {
 			case FIRST_N:
-				point.x -= VERTEX_DISTANCE;
+				point.x += VERTEX_DISTANCE;
 				break;
 
 			case SECOND_N:
+				point.x += EDGE_LENGTH;
+				point.y += VTX_HEIGHT_DIFFRENCE;
+				break;
+
+			case THIRD_N:
+				point.x -= EDGE_LENGTH;
+				point.y += VTX_HEIGHT_DIFFRENCE;
+				break;
+
+			case FOURTH_N:
+				point.x -= VERTEX_DISTANCE;
+				break;
+
+			case FIFTH_N:
 				point.x -= EDGE_LENGTH;
 				point.y -= VTX_HEIGHT_DIFFRENCE;
 				break;
 
-			case THIRD_N:
+			case SIXTH_N:
 				point.x += EDGE_LENGTH;
 				point.y -= VTX_HEIGHT_DIFFRENCE;
-				break;
-
-			case FOURTH_N:
-				point.x += VERTEX_DISTANCE;
-				break;
-
-			case FIFTH_N:
-				point.x += EDGE_LENGTH;
-				point.y += VTX_HEIGHT_DIFFRENCE;
-				break;
-
-			case SIXTH_N:
-				point.x -=EDGE_LENGTH;
-				point.y += VTX_HEIGHT_DIFFRENCE;
 				break;
 			}
 
 			// search the neighbor int the graph (if exists)
-			(*it).setPotentialNeighbors ( it.get_index() , search_neighbor(point) ) ; 
+			(*it).setPotentialNeighbors ( i , search_neighbor(point) ) ; 
 		}
 	}
 
