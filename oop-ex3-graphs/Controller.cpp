@@ -16,11 +16,11 @@ void Controller::init(std::ifstream &infd)
 {
 	createWindow();
 	//readLevel(infd);
-
+	srand(12346);
 	std::vector<GameNode> nodes;
 	for (unsigned i = 0; i < 10; i++)
 	{
-		bool ant[6] = { true, true, false, true, true, true };
+		bool ant[6] = { bool(rand() % 2), bool(rand() % 2), bool(rand() % 2), bool(rand() % 2), bool(rand() % 2), bool(rand() % 2) };
 		GameNode node(i, Point(float(40+80*i), float(80)), ant);
 		nodes.push_back(node);
 	}
@@ -102,6 +102,11 @@ void Controller::readLevel(std::ifstream &infd)
 // run level game loop
 bool Controller::runLevel()
 {
+	// =====================================================
+	_light_source = 4;
+	// =====================================================
+
+
 	bool isCompleted = false;
 	while (!isCompleted) 
 	{
@@ -126,6 +131,9 @@ void Controller::draw()
 	for (Graph<GameNode>::Iterator it = _board->begin(); !it.isEnd(); ++it)
 		(*it).draw(_window);
 
+	for (Graph<GameNode>::BFS_Iterator it(*_board, _light_source); !it.isEnd(); ++it)
+		(*it).light(_window);
+
 	_window.display();
 }
 
@@ -140,9 +148,21 @@ bool Controller::handleEvents(const sf::Event& event)
 
 	case sf::Event::MouseButtonPressed: // Mouse Button pressed:
 	{
+		MOUSE_CLICK_TYPE click_type;
+		// check which button was pressed
+		switch (event.mouseButton.button)
+		{
+		case (sf::Mouse::Right):
+			click_type = RIGHT;
+			break;
+		case (sf::Mouse::Left):
+		default:
+			click_type = LEFT;
+			break;
+		}
 
 		for (Graph<GameNode>::Iterator it = _board->begin(); !it.isEnd(); ++it)
-			if ((*it).click(*_board, Point(float(event.mouseButton.x), float(event.mouseButton.y)), RIGHT))
+			if ((*it).click(*_board, Point(float(event.mouseButton.x), float(event.mouseButton.y)), click_type))
 				break;
 	}
 		break;

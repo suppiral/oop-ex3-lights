@@ -12,6 +12,8 @@ enum MOUSE_CLICK_TYPE {
 	LEFT = 1
 };
 
+const int NO_NEIGHBOR = -1;
+
 
 const unsigned WINDOW_W = 800;
 const unsigned WINDOW_H = 600;

@@ -15,6 +15,8 @@ public:
 private:
 	Graph<GameNode>* _board;
 	sf::RenderWindow _window;
+	unsigned _light_source;
+
 
 	void init(ifstream &infd);
 	void readLevel(ifstream &infd);
