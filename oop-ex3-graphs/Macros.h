@@ -12,20 +12,17 @@ enum MOUSE_CLICK_TYPE {
 	LEFT = 1
 };
 
-
-const unsigned WINDOW_W = 800;
-const unsigned WINDOW_H = 600;
-
+const float AZIZ_TIME = 2.5f;
 
 const unsigned NUM_OF_POSSIBLE_NEIGHBORS = 6;
-const unsigned NODE_RADIUS = 10;
+const unsigned NODE_RADIUS = 7;
 const unsigned ANTENNA_WIDTH = 3;
-const unsigned EDGE_LENGTH = 40; // the length of an edge.
+const unsigned EDGE_LENGTH = 30; // the length of an edge.
 const unsigned VERTEX_DISTANCE = EDGE_LENGTH*2; // this is the space between two vertexes.
 const float HEIGHT_DIFFRENCE = float((sqrt(3.0)/2))*EDGE_LENGTH; // the height diffrence between two rows is e.q triangle height.
 const float VTX_HEIGHT_DIFFRENCE = float((sqrt(3.0)/2)*VERTEX_DISTANCE);
 const unsigned FIRST_ROW_VTX_NUM = 3;
-const unsigned MARGIN = 100;
+const unsigned MARGIN = 60;
 
 const char Edge = '1' ;
 const char NoEdge = '0' ;

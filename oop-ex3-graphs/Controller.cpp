@@ -20,17 +20,18 @@ void Controller::init(std::ifstream &infd)
 	splash.create(sf::VideoMode(576, 730), "Aziz! Lights!", sf::Style::None);
 	sf::Sprite BG;
 	sf::Texture texture;
-	if (!texture.loadFromFile("Aziz.png"))
-	    exit(1);
-	texture.setSmooth(true);
-	BG.setPosition(0,0);
-	BG.setTexture(texture);
-	splash.draw(BG);
-	splash.display();
+	if (texture.loadFromFile("Aziz.png"))
+	{
+		texture.setSmooth(true);
+		BG.setPosition(0,0);
+		BG.setTexture(texture);
+		splash.draw(BG);
+		splash.display();
+	}
 	// -----------------------------------------------------------
 	// Read Level
 	readLevel(infd);
-	sf::sleep(sf::seconds(3.f));
+	sf::sleep(sf::seconds(AZIZ_TIME));
 	// ------------------ Close Splash --------------------------
 	splash.close();
 	// ------------------ Create Window --------------------------
@@ -119,15 +120,19 @@ void Controller::readLevel(std::ifstream &infd)
 	}
 	_board = new Graph<GameNode>(nodes);
 	createNeighborsLists();
+	// build edges
+	for (Graph<GameNode>::Iterator it = _board->begin(); !it.isEnd(); ++it)
+	{
+		(*it).click(*_board, (*it).getPos(), RIGHT); // build edges
+		(*it).click(*_board, (*it).getPos(), LEFT); // shift back
+	}
 }
 
 // run level game loop
 bool Controller::runLevel()
 {
-	// =====================================================
+	// declare light source as the middle node
 	_light_source = _board->size() / 2;
-	// =====================================================
-
 
 	bool completed = false;
 	while (!completed) 
