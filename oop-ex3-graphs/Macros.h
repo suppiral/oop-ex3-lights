@@ -34,7 +34,7 @@ const char Newline_c = '\n';
 const unsigned EDGE_VAL = 1;
 const unsigned NO_EDGE_VAL = 0;
 
-const Point INIT_POINT(250,250);  // the first on the screen
+const Point INIT_POINT(50,50);  // the first on the screen
 
 const int NO_NEIGHBOR = -1;
 
