@@ -14,7 +14,7 @@ int main()
 	
 		// --------------------- Create Splash ------------------------
 	sf::RenderWindow splash;
-	splash.create(sf::VideoMode(576, 730), "Aziz! Lights!", sf::Style::None);
+	splash.create(sf::VideoMode(316, 400), "Aziz! Lights!", sf::Style::None);
 	sf::Sprite BG;
 	sf::Texture texture;
 	if (texture.loadFromFile("Aziz.png"))
