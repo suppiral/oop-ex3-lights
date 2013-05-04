@@ -12,10 +12,29 @@ int main()
 
 	bool completed = true; // has the player completed the level?
 	
+		// --------------------- Create Splash ------------------------
+	sf::RenderWindow splash;
+	splash.create(sf::VideoMode(576, 730), "Aziz! Lights!", sf::Style::None);
+	sf::Sprite BG;
+	sf::Texture texture;
+	if (texture.loadFromFile("Aziz.png"))
+	{
+		texture.setSmooth(true);
+		BG.setPosition(0,0);
+		BG.setTexture(texture);
+		splash.draw(BG);
+		splash.display();
+	}
+	sf::sleep(sf::seconds(AZIZ_TIME));
+	// ------------------ Close Splash --------------------------
+	splash.close();
+
+
 	for ( int level = 0; level < num_of_levels && completed && !infd.eof(); level++)
 	{
 		Controller ctrl(infd);
-		ctrl.runLevel();
+		if (!ctrl.runLevel())
+			break;
 	}
 
 	return EXIT_SUCCESS;

@@ -14,27 +14,7 @@ Controller::~Controller()
 // controller initialization
 void Controller::init(std::ifstream &infd) 
 {
-
-	// --------------------- Create Splash ------------------------
-	sf::RenderWindow splash;
-	splash.create(sf::VideoMode(576, 730), "Aziz! Lights!", sf::Style::None);
-	sf::Sprite BG;
-	sf::Texture texture;
-	if (texture.loadFromFile("Aziz.png"))
-	{
-		texture.setSmooth(true);
-		BG.setPosition(0,0);
-		BG.setTexture(texture);
-		splash.draw(BG);
-		splash.display();
-	}
-	// -----------------------------------------------------------
-	// Read Level
 	readLevel(infd);
-	sf::sleep(sf::seconds(AZIZ_TIME));
-	// ------------------ Close Splash --------------------------
-	splash.close();
-	// ------------------ Create Window --------------------------
 	createWindow();
 
 }
@@ -46,7 +26,7 @@ void Controller::createWindow()
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 8;
 
-	_window.create(sf::VideoMode(2*MARGIN + (((num_of_rows-1)/2 + 3)*unsigned(VERTEX_DISTANCE)),  2*MARGIN + unsigned(VTX_HEIGHT_DIFFRENCE)*num_of_rows), 
+	_window.create(sf::VideoMode(2*MARGIN + (num_of_rows-1)*unsigned(VERTEX_DISTANCE),  2*MARGIN + unsigned(VTX_HEIGHT_DIFFRENCE)*(num_of_rows-1)), 
 					"Aziz! Lights!", sf::Style::Default, settings);
 	
 	_window.setVerticalSyncEnabled(true); // set refresh rate as screen's refresh rate
@@ -66,7 +46,7 @@ void Controller::readLevel(std::ifstream &infd)
 
 	infd >> num_of_rows; // get the rows number
 
-	point.x = float(MARGIN + (((num_of_rows-1)/2 + 3)*VERTEX_DISTANCE/2)-VERTEX_DISTANCE);
+	point.x = float(MARGIN + num_of_rows/2*EDGE_LENGTH);
 	point.y = float(MARGIN);
 
 	// run on rows
@@ -140,8 +120,11 @@ bool Controller::runLevel()
 		Graph<GameNode>::BFS_Iterator bfs_it(*_board, _light_source);
 		if (bfs_it.length() == _board->size())
 			completed = true;
+		
 		draw(bfs_it);
 
+		if (completed)
+			sf::sleep(sf::seconds(AZIZ_TIME));
 		
 		sf::Event event;
 		_window.waitEvent(event);
