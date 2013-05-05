@@ -19,7 +19,7 @@ int main()
 	splash.create(sf::VideoMode(316, 400), "Aziz! Lights!", sf::Style::None);
 	sf::Sprite BG;
 	sf::Texture texture;
-	if (texture.loadFromFile("Aziz.png"))
+	if (texture.loadFromFile("Aziz.jpg"))
 	{
 		texture.setSmooth(true);
 		BG.setPosition(0,0);
