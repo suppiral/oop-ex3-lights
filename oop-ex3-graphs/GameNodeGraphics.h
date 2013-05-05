@@ -1,3 +1,5 @@
+// header file for GameNodeGraphics which represented the Graphics of a node.
+
 #pragma once
 
 #include <SFML/Graphics.hpp>

@@ -11,18 +11,17 @@
 template <class T>
 class Graph {
 public:
-	// constructors
+	// constructor
+	// gets: a vector of nodes. the nodes will be accessed in the order they were inserted
 	Graph(std::vector<T>& nodes)
 	{
 		for (unsigned i = 0; i < nodes.size(); i++)
 		{
+			// create a vertex container for node
 			Vertex<T> vertex(nodes[i]);
 			_vertices.push_back(vertex);
 		}
 
-		
-
-		//creatNeighborsLists();
 	}
 
 	// information
@@ -74,7 +73,9 @@ private:
 	std::vector<Vertex<T>> _vertices;
 };
 
-
+// --------------------------------------------------------------------------
+// Simple Iterator for graph
+// runs on the graph in the order the vertices were inserted
 
 template <class T>
 class Graph<T>::Iterator {
@@ -127,9 +128,11 @@ private:
 template <class T>
 class Graph<T>::BFS_Iterator {
 public:
-	// the Constructor creates a 
+	// the Constructor creates an order of vertices in which the iterator iterates.
+	// the order is set by bfs from the source vertex.
 	BFS_Iterator(Graph<T>& graph, unsigned source) : _graph(graph), _index(0) { if (source < _graph.size()) runBFS(source); }
 
+	// returns the value the iterator points at.
 	T& operator* () { return _graph[_index]; }
 
 	// next
@@ -171,7 +174,7 @@ public:
 private:
 	Graph<T>& _graph;
 	std::queue<unsigned> _order;
-	unsigned int _index;
+	unsigned int _index; // current index
 
 	// ------------------------------------------------------------------------------
 

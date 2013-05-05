@@ -51,12 +51,8 @@ private:
 	T _node;
 	std::vector<unsigned> _neighbors; // neighbors list.
 };
-
-
-                                                                     
-                                                                     
-                                                                     
-                                             
+                                      
+// iterator that runs on the neighbors of the vertex
 
 template<class T>
 class Vertex<T> ::neighborsIterator {

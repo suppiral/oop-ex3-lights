@@ -1,8 +1,12 @@
+// source code for GameNodeGraphics.
+// contains the graphical representation of a node in the game.
+
+
 #include "GameNodeGraphics.h"
 
 #define GRAY sf::Color::Color(125,125,125)
 
-// Constructor
+// Constructor: gets points on screen
 GameNodeGraphics::GameNodeGraphics(const Point& loc) : _lightbulb(float(NODE_RADIUS))
 {
 	// setup lightbulb
@@ -14,6 +18,7 @@ GameNodeGraphics::GameNodeGraphics(const Point& loc) : _lightbulb(float(NODE_RAD
 	// setup antennot
 	for (unsigned i = 0; i < NUM_OF_POSSIBLE_NEIGHBORS; i++)
 	{
+		// antennot are lines constructed by sf::RectangleShape and rotated around the source: the light bulb
 		sf::RectangleShape line;
 		line.setSize((sf::Vector2f(float(EDGE_LENGTH), float(ANTENNA_WIDTH))));
 		line.setPosition(float(loc.x), float(loc.y));
@@ -24,22 +29,23 @@ GameNodeGraphics::GameNodeGraphics(const Point& loc) : _lightbulb(float(NODE_RAD
 	}
 }
 
+// check if position is on lightbulb
 bool GameNodeGraphics::isPosIn(const Point& pos) const
 {
 	// get bounds of node
 	sf::FloatRect bounds = _lightbulb.getGlobalBounds();
 	// don't forget the edges
-	bounds.left -= EDGE_LENGTH;
-	bounds.top -= EDGE_LENGTH;
-	bounds.width += EDGE_LENGTH*2;
-	bounds.height += EDGE_LENGTH*2;
+	bounds.left -= EDGE_LENGTH/2;
+	bounds.top -= EDGE_LENGTH/2;
+	bounds.width += EDGE_LENGTH;
+	bounds.height += EDGE_LENGTH;
 
 	// return if contains pos
 	return bounds.contains(float(pos.x), float(pos.y));
 }
 
 
-// Drawing
+// Drawing: gets window to draw on and which antennot to draw
 void GameNodeGraphics::draw(sf::RenderWindow& window, bool antennot_logic[NUM_OF_POSSIBLE_NEIGHBORS]) 
 {
 	// draw antenna if there's one according to antennot logic

@@ -1,3 +1,5 @@
+// header file for Controller class.
+
 #pragma once
 
 #include <SFML/Graphics.hpp>

@@ -1,3 +1,6 @@
+// source code for Controller class.
+// responsible for controlling the levels flow.
+
 #include "Controller.h"
 
 // Constructor
@@ -117,8 +120,9 @@ bool Controller::runLevel()
 	bool completed = false;
 	while (!completed) 
 	{
+		// run bfs from light source
 		Graph<GameNode>::BFS_Iterator bfs_it(*_board, _light_source);
-		if (bfs_it.length() == _board->size())
+		if (bfs_it.length() == _board->size()) // if all vertices are connected
 			completed = true;
 		
 		draw(bfs_it);
@@ -126,6 +130,7 @@ bool Controller::runLevel()
 		if (completed)
 			sf::sleep(sf::seconds(AZIZ_TIME));
 		
+		// handle events
 		sf::Event event;
 		_window.waitEvent(event);
 		if (!handleEvents(event)) // check if X button pressed
@@ -139,9 +144,11 @@ void Controller::draw(Graph<GameNode>::BFS_Iterator& bfs_it)
 {
 	_window.clear();
 	
+	// draw all
 	for (Graph<GameNode>::Iterator it = _board->begin(); !it.isEnd(); ++it)
 		(*it).draw(_window);
 
+	// draw lights
 	for (; !bfs_it.isEnd(); ++bfs_it)
 		(*bfs_it).light(_window);
 
@@ -171,7 +178,7 @@ bool Controller::handleEvents(const sf::Event& event)
 			click_type = RIGHT;
 			break;
 		}
-
+		// click on pressed bulb
 		for (Graph<GameNode>::Iterator it = _board->begin(); !it.isEnd(); ++it)
 			if ((*it).click(*_board, Point(float(event.mouseButton.x), float(event.mouseButton.y)), click_type))
 				break;
